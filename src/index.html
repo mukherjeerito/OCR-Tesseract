@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>OCR</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    </head>
+    
+    <body id="main_body" onload="loader()">
+        <div>Welcome</div>
+        <input type="file" id="go_button" onchange ="result(this)" />
+
+
+        <div id="ocr_results"></div>
+        <div id="ocr_status"></div>
+   
+        <script async>
+            function loader(){
+                var script = document.createElement('script');
+                script.setAttribute("type", "text/javascript");
+                script.setAttribute("src", "teseract.js");
+                
+                document.getElementById("main_body").appendChild(script);
+            }
+                
+            function runOCR(url) {
+                Tesseract.recognize(url)
+                    .then(function(result) {
+                        //alert("Hello! I am an alert box!!");
+                       document.getElementById("ocr_results")
+                               .innerText = result.text;
+                    }).progress(function(result) {
+                       document.getElementById("ocr_status")
+                               .innerText = result["status"] + " (" +
+                                   (result["progress"] * 100) + "%)";
+                    });
+            }
+
+            
+            function result($this){
+                'use strict'
+                let URL = window.URL || window.webkitURL
+                let that = $this;
+                var file = that.files[0];
+                var fileURL = URL.createObjectURL(file);
+                var url = fileURL
+
+                runOCR(url);
+            }
+        </script>
+    </body>
+</html>

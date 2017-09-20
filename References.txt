@@ -1,0 +1,6 @@
+Reference/Documentation URL:
+http://progur.com/2016/10/how-to-use-tesseract-for-ocr-javascript.html
+
+
+Parent Library URL:
+https://github.com/naptha/tesseract.js
